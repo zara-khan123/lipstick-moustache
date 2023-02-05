@@ -1,5 +1,11 @@
+var filter ="";
+var noseX = 0;
+var noseY = 0;
+
 function preload()
 {
+    mustache_img = loadImage('https://i.postimg.cc/3x3QzSGq/m.png');
+    lipstick_img = loadImage('https://i.postimg.cc/PxFvYgkv/l1.png');
 }
 
 function setup(){
@@ -15,6 +21,26 @@ function setup(){
 
 function draw()
 {
+    image(video, 0, 0, 300, 300);
+    if(filter == "lipstick") 
+    {
+        image(lipstick_img, noseX, noseY + 10, 35, 25);
+    }
+   if(filter == "mustache")
+   {
+    image(mustache_img, noseX, noseY, 35, 25);
+   }
+   
+}
+
+function lipstick()
+{
+    filter = "lipstick";
+}
+
+function mustache()
+{
+    filter ="mustache";
 }
 
 function take_snapshot()
@@ -32,11 +58,9 @@ function gotPoses(results)
     if(results.length > 0)
     {
         console.log(results);
-        console.log("mouth x = " + results[0].pose.mouth.x);
-        console.log("mouth y = " + results[0].pose.mouth.y);
-    } else{
-        console.log(results);
-        console.log("mouth x = " + results[0].pose.mouth.x);
-        console.log("mouth y = " + results[0].pose.mouth.y);
-    }
+        console.log("nose x = " + results[0].pose.nose.x);
+        console.log("nose y = " + results[0].pose.nose.y);
+        noseX = results[0].pose.nose.x - 15;
+        noseY = results[0].pose.nose.y;
+    } 
 }
